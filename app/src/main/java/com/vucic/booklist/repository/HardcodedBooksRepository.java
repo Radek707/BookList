@@ -5,6 +5,7 @@ import com.vucic.booklist.models.HardcodedBook;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class HardcodedBooksRepository implements BooksRepository {
     private List<Book> list = new ArrayList<>();
@@ -32,7 +33,18 @@ public class HardcodedBooksRepository implements BooksRepository {
 
     @Override
     public List<Book> getBooksByAuthor(String author) {
-        return null;
+        List<Book> bookByAuthorList = new ArrayList<>();
+        if (!author.equals("")) {
+            for (Book book : list) {
+                String tempString = book.getAuthor().toLowerCase(Locale.ROOT);
+                if (tempString.contains(author.toLowerCase(Locale.ROOT))) {
+                    bookByAuthorList.add(book);
+                }
+            }
+            return bookByAuthorList;
+        } else {
+            return list;
+        }
     }
 
     @Override
